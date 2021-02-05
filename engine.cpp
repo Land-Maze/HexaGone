@@ -1,20 +1,24 @@
 #include <iostream>
 #include <fstream>
+#include <unistd.h>
+#include <ncurses.h>
 #include "Addons/drawing.hpp"
 #include "Addons/logical.hpp"
-#pragma once
 
 int main()
 {
+    Menu menu;
+    Logical logical;
+
+    
 	initscr();
 	clear();
     keypad(stdscr,1);
 	noecho();
 	cbreak();
-    Menu menu;
-    Logical logical;
-    logical.inputController();
     menu.mainMenu();
+    logical.inputController();
+    sleep(2);
     endwin();
     return 0;
 }

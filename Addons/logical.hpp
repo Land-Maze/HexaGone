@@ -1,11 +1,17 @@
 #include <ncurses.h>
 #include <iostream>
+#include <string>
 #include "drawing.hpp"
 #pragma once
 
+
+
 class Logical {
-    
     Menu menu;
+    
+    private:
+
+    uint8_t trackPoint; 
 
     public:
 
@@ -18,11 +24,19 @@ class Logical {
     }
 
     void inputController(){
-
-        switch(getch()){
+        int gay = getch();
+        switch(gay){
+            
             case KEY_UP:
-            printw("Pressed" + KEY_UP);
+                
+            break;
+
+            default:
+
+            break;
         }
+
+        refresh();
 
     }
 
