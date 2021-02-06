@@ -1,26 +1,24 @@
+#pragma once
 #include <ncurses.h>
 #include <iostream>
 #include <string>
 #include "drawing.hpp"
-#pragma once
 
 
 
 class Logical {
-    Menu menu;
-    
-    private:
 
+    Menu menu;
     uint8_t trackPoint; 
 
     public:
+    
 
     void menuController(){
-        
-
-        
         clear();
-        menu.mainMenu();   
+        menu.logoShow();
+        menu.mainMenu();  
+        inputController(); 
     }
 
     void inputController(){
@@ -28,16 +26,31 @@ class Logical {
         switch(gay){
             
             case KEY_UP:
-                
+
+                if (menu.curU_D != 5) 
+                menu.curU_D++;   
+                menuController();
+
+            break;
+
+            case KEY_DOWN:
+
+                if (menu.curU_D != 1) 
+                menu.curU_D--;
+                menuController();
+
+            break;
+
+            case 10:
+
+
+
             break;
 
             default:
-
+                menuController();
             break;
         }
-
-        refresh();
-
     }
 
 };

@@ -1,42 +1,90 @@
+#pragma once
 #include <ncurses.h>
 #include <iostream>
 #include <string>
-#pragma once
 
 using std::string;
 
-class Menu {
-
-private:
+class Menu {   
 
 
+    const char *menuPunct[5] = {"Start", "Log", "Creditals", "Settings", "Exit"};
 
 public: 
+    short curU_D;
 
     void mainMenu() {
         
-        
+        for (short i = 0;i <= 5;i++){
+            
+            if (i == curU_D){
+                printw("\n\n\t");
+                attron(A_BOLD | A_REVERSE);
+                printw(menuPunct[i]);
+                attroff(A_BOLD | A_REVERSE);
+            } else {
+                printw("\n\n\t"); 
+                printw(menuPunct[i]);   
+            }
+        }
+            refresh();
+
     }
 
     void logoShow(){
+        init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+        init_pair(2, COLOR_RED, COLOR_BLACK);
+        attron(A_BOLD);
+        
+        attron(COLOR_PAIR(1));
+        printw("    __  __                ");
+        attroff(COLOR_PAIR(1));
 
-        printw("");
+        attron(COLOR_PAIR(2));
+        printw("______               \n");
+        attroff(COLOR_PAIR(2));
 
+
+        attron(COLOR_PAIR(1));
+        printw("   / / / /__  _  ______ _");
+        attroff(COLOR_PAIR(1));
+
+        attron(COLOR_PAIR(2));
+        printw("/ ____/___  ____  ___ \n");
+        attroff(COLOR_PAIR(2));
+
+        attron(COLOR_PAIR(1));
+        printw("  / /_/ / _ \\| |/_/ __ `");
+        attroff(COLOR_PAIR(1));
+
+
+        attron(COLOR_PAIR(2));
+        printw("/ / __/ __ \\/ __ \\/ _ \\\n");
+        attroff(COLOR_PAIR(2));
+
+        attron(COLOR_PAIR(1));
+        printw(" / __  /  __/>  </ /_/ ");
+        attroff(COLOR_PAIR(1));
+
+        attron(COLOR_PAIR(2));
+        printw("/ /_/ / /_/ / / / /  __/\n");
+        attroff(COLOR_PAIR(2));
+
+        attron(COLOR_PAIR(1));
+        printw("/_/ /_/\\___/_/|_|\\__,_/");
+        attroff(COLOR_PAIR(1));
+
+        attron(COLOR_PAIR(2));
+        printw("\\____/\\____/_/ /_/\\___/");
+        attroff(COLOR_PAIR(2));
+
+        attroff(A_BOLD);
+        refresh();
     }
 
 
 };
 
-/*                       
-    __  __                ______               
-   / / / /__  _  ______ _/ ____/___  ____  ___ 
-  / /_/ / _ \| |/_/ __ `/ / __/ __ \/ __ \/ _ \
- / __  /  __/>  </ /_/ / /_/ / /_/ / / / /  __/
-/_/ /_/\___/_/|_|\__,_/\____/\____/_/ /_/\___/ 
-                                               
-
-
-                                      
-
+/*
 
 */
