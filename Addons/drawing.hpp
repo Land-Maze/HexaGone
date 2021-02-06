@@ -8,14 +8,14 @@ using std::string;
 class Menu {   
 
 
-    const char *menuPunct[5] = {"Start", "Log", "Creditals", "Settings", "Exit"};
+    const char *menuPunct[5] = {"<Start>", "<Creditals>", "Settings --IN PROGRESS", "Log --IN PROGRESS", "<Exit>"};
 
 public: 
-    short curU_D;
+    short curU_D = 0;
 
     void mainMenu() {
         
-        for (short i = 0;i <= 5;i++){
+        for (short i = 0;i < 5;i++){
             
             if (i == curU_D){
                 printw("\n\n\t");
