@@ -89,12 +89,16 @@ public:
     }
 
     void showCreditals(){
-
         printw("\n\n\tAuthor: Land-Maze\n\n\tLicence: CC BY-NC-ND 4.0\n\tGet full info here > ");
         attron(A_BOLD | A_UNDERLINE);
         printw("https://creativecommons.org/licenses/by-nc-nd/4.0/");
         attroff(A_BOLD | A_UNDERLINE);
         refresh();
+
+        printw("\n\n\n\n\t");
+        attron(A_BOLD | A_REVERSE);
+        printw("<Back>");
+        attroff(A_BOLD | A_REVERSE);
     }
 
 

@@ -27,26 +27,24 @@ class Logical {
 
             case 3:
 
-                mainMenu();
+                inputController();
 
             break;
+
         }
     }
 
     void menuLogicalController(){
-        if (trackPoint == 1)
+        switch (trackPoint){
+            case 1:
             switch (draw.curU_D){
                 
                 case 0:
-                    trackPoint = 2;
                     Start();
-
                 break;
 
                 case 1:
-                    trackPoint = 3;
                     Creditals();
-
                 break;
 
                 case 2:
@@ -65,6 +63,18 @@ class Logical {
                 break;
 
             }
+            break;
+
+            case 2:
+
+            break;
+
+            case 3: //
+                
+                mainMenu();
+
+            break;
+        }
     }
 
     void inputController(){
@@ -100,7 +110,7 @@ class Logical {
     }
 
     void Start(){
-
+        trackPoint = 2;
         draw.curU_D=0;
 
 
@@ -111,6 +121,7 @@ class Logical {
     }
 
     void Creditals(){
+        trackPoint = 3;
         clear();
         draw.logoShow();
         draw.showCreditals();
@@ -122,6 +133,7 @@ class Logical {
     }
 
     void mainMenu(){
+        trackPoint = 1;
         clear();
         draw.logoShow();
         draw.mainMenu();
