@@ -6,7 +6,6 @@
 
 int main()
 {
-    Menu menu;
     Logical logical;
 
 

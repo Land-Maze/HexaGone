@@ -3,33 +3,49 @@
 #include <iostream>
 #include <string>
 #include "drawing.hpp"
+#include "..//Tools/SMS.hpp"
 
 
 
 class Logical {
 
-    Menu menu;
-    uint8_t trackPoint = 1; //1- menu
+    Menu draw;
+    uint8_t trackPoint = 1; //1 - Menu; 2 - Start; 3 - Creditals;
 
     public:
     
 
     void menuController(){
-        clear();
-        menu.logoShow();
-        menu.mainMenu();
-        inputController(); 
+        switch (trackPoint){
+            case 1:
+                mainMenu();
+            break;
+
+            case 2:
+
+            break;
+
+            case 3:
+
+                mainMenu();
+
+            break;
+        }
     }
 
     void menuLogicalController(){
         if (trackPoint == 1)
-            switch (menu.curU_D){
+            switch (draw.curU_D){
                 
                 case 0:
+                    trackPoint = 2;
+                    Start();
 
                 break;
 
                 case 1:
+                    trackPoint = 3;
+                    Creditals();
 
                 break;
 
@@ -56,14 +72,14 @@ class Logical {
         switch(gay){
             
             case KEY_UP:
-                if (menu.curU_D != 0) 
-                menu.curU_D--;
+                if (draw.curU_D != 0) 
+                draw.curU_D--;
                 menuController();
             break;
 
             case KEY_DOWN:
-                if (menu.curU_D != 4)
-                menu.curU_D++;   
+                if (draw.curU_D != 4)
+                draw.curU_D++;   
                 menuController();
             break;
 
@@ -80,10 +96,13 @@ class Logical {
     }
 
     void Exit(){
-        std::cout << "Exiting program with code 0"; 
+        std::cout << "Exiting program with code 0 "; 
     }
 
     void Start(){
+
+        draw.curU_D=0;
+
 
     }
 
@@ -92,11 +111,21 @@ class Logical {
     }
 
     void Creditals(){
-
+        clear();
+        draw.logoShow();
+        draw.showCreditals();
+        inputController();
     }
 
     void Settings(){
 
+    }
+
+    void mainMenu(){
+        clear();
+        draw.logoShow();
+        draw.mainMenu();
+        inputController();
     }
 
 };

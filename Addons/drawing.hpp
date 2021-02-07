@@ -8,7 +8,7 @@ using std::string;
 class Menu {   
 
 
-    const char *menuPunct[5] = {"<Start>", "<Creditals>", "Settings --IN PROGRESS", "Log --IN PROGRESS", "<Exit>"};
+    const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings --IN PROGRESS", "Log --IN PROGRESS", "<Exit>"};
 
 public: 
     short curU_D = 0;
@@ -79,6 +79,21 @@ public:
         attroff(COLOR_PAIR(2));
 
         attroff(A_BOLD);
+        refresh();
+    }
+
+    void startMenu(){
+
+        
+
+    }
+
+    void showCreditals(){
+
+        printw("\n\n\tAuthor: Land-Maze\n\n\tLicence: CC BY-NC-ND 4.0\n\tGet full info here > ");
+        attron(A_BOLD | A_UNDERLINE);
+        printw("https://creativecommons.org/licenses/by-nc-nd/4.0/");
+        attroff(A_BOLD | A_UNDERLINE);
         refresh();
     }
 
