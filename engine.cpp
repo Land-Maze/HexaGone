@@ -10,9 +10,9 @@ int main()
 
 
 	initscr();
-	clear();
+    clear();
     keypad(stdscr,1);
-	noecho();
+    noecho();
 	cbreak();
     start_color();
     logical.menuController();

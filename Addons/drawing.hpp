@@ -7,27 +7,33 @@ using std::string;
 
 class Menu {   
 
-
-    const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings --IN PROGRESS", "Log --IN PROGRESS", "<Exit>"};
+    const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings", "Log", "<Exit>"};
+    const char* startPunct[4] = {"<SMS>", "<UDP>", "EMAIL", "<Back>"};
 
 public: 
     short curU_D = 0;
 
-    void mainMenu() {
-        
-        for (short i = 0;i < 5;i++){
+    void punctShow(const char* punct[], short sizeA){
+
+        for (short i = 0;i < sizeA ;i++){
             
             if (i == curU_D){
                 printw("\n\n\t");
                 attron(A_BOLD | A_REVERSE);
-                printw(menuPunct[i]);
+                printw(punct[i]);
                 attroff(A_BOLD | A_REVERSE);
             } else {
                 printw("\n\n\t"); 
-                printw(menuPunct[i]);   
+                printw(punct[i]);   
             }
         }
             refresh();
+
+    }
+
+    void mainMenu() {
+        
+        punctShow(menuPunct, sizeof(menuPunct)/ sizeof(char*));
 
     }
 
@@ -84,7 +90,7 @@ public:
 
     void startMenu(){
 
-        
+        punctShow(startPunct, sizeof(startPunct) / sizeof(char*));
 
     }
 
