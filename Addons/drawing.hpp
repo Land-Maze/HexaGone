@@ -14,8 +14,8 @@ class Menu {
 
 public: 
 
-    char targetIp[24];
-    char threads[3];
+    int16_t targetIp[24];
+    int16_t threads[3];
     short curU_D = 0;
 
     void punctShow(const char* punct[], short sizeA){
@@ -126,9 +126,9 @@ public:
                 printw(UDP[i]);
                 
                 if (curU_D == 1){
-                printw(targetIp);
+                printw((char*)targetIp);
                 } else if(curU_D == 2)
-                printw(threads);
+                printw((char*)threads);
 
                 attroff(A_BOLD);
             } else {

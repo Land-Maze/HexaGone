@@ -56,37 +56,87 @@ class Logical {
 
             case 7:
                 switch (draw.curU_D){
-                    case 0:
+                    case 1:
                     if (gay != KEY_BACKSPACE){
                         for (short i=0; i < 24; i++){
-                            if (draw.targetIp[i] == NULL)
+                            if (draw.targetIp[i] == '\0')
                                 draw.targetIp[i] = gay;
                         }
                     } else {
                         for (short i=0; i < 24; i++){
-                            if (draw.targetIp[i] == NULL)
-                                draw.targetIp[i-1] = NULL;
+                            if (draw.targetIp[i] == '\0')
+                                draw.targetIp[i-1] = '\0';
                         }
                     }
                     break;
 
-                    case 1:
+                    case 2:
 
                     if (gay != KEY_BACKSPACE){
                         for (short i=0; i < 3; i++){
-                            if (draw.threads[i] == NULL)
+                            if (draw.threads[i] == '\0')
                                 draw.threads[i] = gay;
                         }
                     } else {
                         for (short i=0; i < 3; i++){
-                            if (draw.threads[i] == NULL)
-                                draw.threads[i-1] = NULL;
+                            if (draw.threads[i] == '\0')
+                                draw.threads[i-1] = '\0';
                         }
                     }
                     break;
                 }
+                UDP();
             break;
 
+        }
+    }
+
+    char inputSymbolController(){
+        switch (trackPoint){
+            case 7:
+                switch (gay){
+                    case 48:
+                        return '0';
+                    break;
+                    case 49:
+                        return '1';
+                    break;
+                    case 50:
+                        return '2';
+                    break;
+                    case 51:
+                        return '3';
+                    break;
+                    case 52:
+                        return '4';
+                    break;
+                    case 53:
+                        return '5';
+                    break;
+                    case 54:
+                        return '6';
+                    break;
+                    case 55:
+                        return '7';
+                    break;
+                    case 56:
+                        return '8';
+                    break;
+                    case 57:
+                        return '9';
+                    break;
+                    if (draw.curU_D == 1){
+                        switch (gay){
+                            case 46:
+                            return '.';
+                            break;
+                            case 58:
+                            return ':';
+                            break;
+                        }
+                    }
+                }
+            break;
         }
     }
 
@@ -173,8 +223,12 @@ class Logical {
                 if (trackPoint == 2)
                     if (draw.curU_D != 3)
                         draw.curU_D++;
+                if (trackPoint == 7)
+                    if (draw.curU_D != 3)
+                        draw.curU_D++;
                 menuController();
             break;
+
 
             case 10:
 
@@ -239,7 +293,10 @@ class Logical {
     void UDP(){
         if (trackPoint != 7) {
             draw.curU_D = 0;
-
+            for (short i = 0; i < 24; i++)
+                draw.targetIp[i] = 255;
+            for (short i = 0; i < 3; i++)
+                draw.threads[i] = 255;
             }
         trackPoint = 7;
         clear();
