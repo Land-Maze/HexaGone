@@ -9,7 +9,7 @@
 
 class Logical {
 
-    
+    int gay;
 
     Menu draw;
     uint8_t trackPoint = 1; //1 - Menu; 2 - Start; 3 - Creditals, 4 - Fav, 5 - Settings, 6 - SMS, 7 - UDP, 8 - EMAIL;
@@ -57,11 +57,32 @@ class Logical {
             case 7:
                 switch (draw.curU_D){
                     case 0:
-
+                    if (gay != KEY_BACKSPACE){
+                        for (short i=0; i < 24; i++){
+                            if (draw.targetIp[i] == NULL)
+                                draw.targetIp[i] = gay;
+                        }
+                    } else {
+                        for (short i=0; i < 24; i++){
+                            if (draw.targetIp[i] == NULL)
+                                draw.targetIp[i-1] = NULL;
+                        }
+                    }
                     break;
 
                     case 1:
 
+                    if (gay != KEY_BACKSPACE){
+                        for (short i=0; i < 3; i++){
+                            if (draw.threads[i] == NULL)
+                                draw.threads[i] = gay;
+                        }
+                    } else {
+                        for (short i=0; i < 3; i++){
+                            if (draw.threads[i] == NULL)
+                                draw.threads[i-1] = NULL;
+                        }
+                    }
                     break;
                 }
             break;
@@ -125,11 +146,18 @@ class Logical {
                 mainMenu();
 
             break;
+
+            case 7:
+                if (draw.curU_D == 0)
+                    startUDP();
+                if (draw.curU_D == 3)
+                    Start();
+            break;
         }
     }
 
     void inputController(){
-        int gay = getch();
+        gay = getch();
         switch(gay){
             
             case KEY_UP:
@@ -217,6 +245,9 @@ class Logical {
         clear();
         draw.logoShow();
         draw.menuUDP();
+        inputController();
+    }
+    void startUDP(){
 
     }
 };

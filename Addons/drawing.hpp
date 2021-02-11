@@ -9,13 +9,13 @@ class Menu {
 
     const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings", "<Favorite>", "<Exit>"};
     const char* startPunct[4] = {"<SMS>", "<UDP>", "EMAIL", "<Back>"};
-    const char* UDP[3] = {"Target(Ex. 192.168.254.72:88) -- ", "Threads(Max 200) -- ", "<Back>"};
+    const char* UDP[4] = {"Start","Target(Ex. 192.168.254.72:88) -- ", "Threads(Max 200) -- ", "<Back>"};
 
 
 public: 
 
-    uint8_t threads[3];
     char targetIp[24];
+    char threads[3];
     short curU_D = 0;
 
     void punctShow(const char* punct[], short sizeA){
@@ -118,13 +118,18 @@ public:
 
     void menuUDP(){
 
-        for (short i = 0;i < 2 ;i++){
+        for (short i = 0;i < 4 ;i++){
             
             if (i == curU_D){
                 printw("\n\n\t");
                 attron(A_BOLD);
                 printw(UDP[i]);
-                printw()
+                
+                if (curU_D == 1){
+                printw(targetIp);
+                } else if(curU_D == 2)
+                printw(threads);
+
                 attroff(A_BOLD);
             } else {
                 printw("\n\n\t"); 
