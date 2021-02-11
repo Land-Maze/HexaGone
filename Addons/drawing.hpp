@@ -7,10 +7,15 @@ using std::string;
 
 class Menu {   
 
-    const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings", "Log", "<Exit>"};
+    const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings", "<Favorite>", "<Exit>"};
     const char* startPunct[4] = {"<SMS>", "<UDP>", "EMAIL", "<Back>"};
+    const char* UDP[3] = {"Target(Ex. 192.168.254.72:88) -- ", "Threads(Max 200) -- ", "<Back>"};
+
 
 public: 
+
+    uint8_t threads[3];
+    char targetIp[24];
     short curU_D = 0;
 
     void punctShow(const char* punct[], short sizeA){
@@ -105,6 +110,30 @@ public:
         attron(A_BOLD | A_REVERSE);
         printw("<Back>");
         attroff(A_BOLD | A_REVERSE);
+    }
+
+    void drawSendPacket(){
+
+    }
+
+    void menuUDP(){
+
+        for (short i = 0;i < 2 ;i++){
+            
+            if (i == curU_D){
+                printw("\n\n\t");
+                attron(A_BOLD);
+                printw(UDP[i]);
+                printw()
+                attroff(A_BOLD);
+            } else {
+                printw("\n\n\t"); 
+                printw(UDP[i]);   
+            }
+        }
+            refresh();
+
+
     }
 
 

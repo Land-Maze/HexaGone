@@ -9,11 +9,34 @@
 
 class Logical {
 
-    Menu draw;
-    uint8_t trackPoint = 1; //1 - Menu; 2 - Start; 3 - Creditals;
+    
 
+    Menu draw;
+    uint8_t trackPoint = 1; //1 - Menu; 2 - Start; 3 - Creditals, 4 - Fav, 5 - Settings, 6 - SMS, 7 - UDP, 8 - EMAIL;
     public:
     
+    void attackController(uint8_t Id){
+        switch (Id){
+            case 0:
+
+            break;
+
+
+            case 1:
+                UDP();
+            break;
+
+
+            case 2:
+
+            break;
+
+
+            case 3:
+
+            break;
+        }
+    }
 
     void menuController(){
         switch (trackPoint){
@@ -29,6 +52,18 @@ class Logical {
 
                 inputController();
 
+            break;
+
+            case 7:
+                switch (draw.curU_D){
+                    case 0:
+
+                    break;
+
+                    case 1:
+
+                    break;
+                }
             break;
 
         }
@@ -67,16 +102,20 @@ class Logical {
 
             case 2:
                 switch (draw.curU_D){
+                    case 0:
+                        attackController(draw.curU_D);
+                    break;
+
                     case 1:
+                        attackController(draw.curU_D);
                     break;
 
                     case 2:
+                        attackController(draw.curU_D);
                     break;
 
                     case 3:
-                    break;
-
-                    case 4:
+                        mainMenu();
                     break;
                 }
             break;
@@ -135,7 +174,7 @@ class Logical {
 
     }
 
-    void Log(){
+    void Favorite(){
 
     }
 
@@ -161,4 +200,23 @@ class Logical {
         inputController();
     }
 
+    void SMS(){
+
+    }
+
+    void EMAIL(){
+
+    }
+
+    void UDP(){
+        if (trackPoint != 7) {
+            draw.curU_D = 0;
+
+            }
+        trackPoint = 7;
+        clear();
+        draw.logoShow();
+        draw.menuUDP();
+
+    }
 };
