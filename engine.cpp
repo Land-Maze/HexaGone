@@ -8,7 +8,7 @@ int main()
 {
     Logical logical;
 
-
+    setlocale(LC_ALL, "");
 	initscr();
     clear();
     keypad(stdscr,1);

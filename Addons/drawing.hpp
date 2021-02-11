@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <iostream>
 #include <string>
+#include <sstream> 
 
 using std::string;
 
@@ -9,18 +10,20 @@ class Menu {
 
     const char* menuPunct[5] = {"<Start>", "<Creditals>", "Settings", "<Favorite>", "<Exit>"};
     const char* startPunct[4] = {"<SMS>", "<UDP>", "EMAIL", "<Back>"};
-    const char* UDP[4] = {"Start","Target(Ex. 192.168.254.72:88) -- ", "Threads(Max 200) -- ", "<Back>"};
+    const char* UDP[4] = {"<Start>","Target -- ", "Threads -- ", "<Back>"};
 
 
 public: 
 
-    int16_t targetIp[24];
-    int16_t threads[3];
+    string targetIp = "";
+    string threads = "";
     short curU_D = 0;
 
     void punctShow(const char* punct[], short sizeA){
 
-        for (short i = 0;i < sizeA ;i++){
+        short sizeAR = sizeA / sizeof(char*);
+
+        for (short i = 0;i < sizeAR ;i++){
             
             if (i == curU_D){
                 printw("\n\n\t");
@@ -38,7 +41,7 @@ public:
 
     void mainMenu() {
         
-        punctShow(menuPunct, sizeof(menuPunct)/ sizeof(char*));
+        punctShow(menuPunct, sizeof(menuPunct));
 
     }
 
@@ -91,11 +94,12 @@ public:
 
         attroff(A_BOLD);
         refresh();
+        
     }
 
     void startMenu(){
 
-        punctShow(startPunct, sizeof(startPunct) / sizeof(char*));
+        punctShow(startPunct, sizeof(startPunct));
 
     }
 
@@ -118,29 +122,69 @@ public:
 
     void menuUDP(){
 
-        for (short i = 0;i < 4 ;i++){
+        short sizeAR = sizeof(UDP) / sizeof(char*);
+
+        for (short i = 0;i < sizeAR ;i++){
             
             if (i == curU_D){
                 printw("\n\n\t");
-                attron(A_BOLD);
+                attron(A_BOLD | A_REVERSE);
                 printw(UDP[i]);
-                
-                if (curU_D == 1){
-                printw((char*)targetIp);
-                } else if(curU_D == 2)
-                printw((char*)threads);
-
-                attroff(A_BOLD);
+                if (i == 1) printw(targetIp.c_str());
+                if (i == 2) printw(threads.c_str());
+                attroff(A_BOLD | A_REVERSE);
             } else {
                 printw("\n\n\t"); 
                 printw(UDP[i]);   
+                if (i == 1) printw(targetIp.c_str());
+                if (i == 2) printw(threads.c_str());
             }
         }
             refresh();
 
-
     }
 
+    void inputUDPA(uint8_t choice){
+        init_pair(3,COLOR_MAGENTA, COLOR_BLACK);
+        switch (choice){
+            case 1:
+                printw("\n\n\t┌────Input the target IP");
+                attron(COLOR_PAIR(3));
+                printw("Example: IPv4:Port -- Port 88 recommended");
+                attroff(COLOR_PAIR(3));
+                printw("\n\n\t│\n\n\t│\n\n\t└──>");
+                targetIp = getstring();
+            break;
+
+            case 2:
+                printw("\n\n\t┌────How many threads?");
+                attron(COLOR_PAIR(3));
+                printw("Max 200");
+                attroff(COLOR_PAIR(3));
+                printw("\n\n\t│\n\n\t│\n\n\t└──>");
+                threads = getstring();
+            break;
+        }
+        
+    }
+
+    string getstring(){
+    std::string input;
+    nocbreak();
+    echo();
+    int ch = getch();
+
+    while ( ch != '\n' )
+    {
+        input.push_back( ch );
+        ch = getch();
+    }
+
+    noecho();
+	cbreak();
+
+    return input;
+    }
 
 };
 

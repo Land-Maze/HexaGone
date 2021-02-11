@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <iostream>
 #include <string>
+#include <sstream> 
 #include "drawing.hpp"
 #include "..//Tools/SMS.hpp"
 
@@ -49,94 +50,13 @@ class Logical {
             break;
 
             case 3:
-
                 inputController();
-
             break;
 
             case 7:
-                switch (draw.curU_D){
-                    case 1:
-                    if (gay != KEY_BACKSPACE){
-                        for (short i=0; i < 24; i++){
-                            if (draw.targetIp[i] == '\0')
-                                draw.targetIp[i] = gay;
-                        }
-                    } else {
-                        for (short i=0; i < 24; i++){
-                            if (draw.targetIp[i] == '\0')
-                                draw.targetIp[i-1] = '\0';
-                        }
-                    }
-                    break;
-
-                    case 2:
-
-                    if (gay != KEY_BACKSPACE){
-                        for (short i=0; i < 3; i++){
-                            if (draw.threads[i] == '\0')
-                                draw.threads[i] = gay;
-                        }
-                    } else {
-                        for (short i=0; i < 3; i++){
-                            if (draw.threads[i] == '\0')
-                                draw.threads[i-1] = '\0';
-                        }
-                    }
-                    break;
-                }
-                UDP();
+                UDP();            
             break;
 
-        }
-    }
-
-    char inputSymbolController(){
-        switch (trackPoint){
-            case 7:
-                switch (gay){
-                    case 48:
-                        return '0';
-                    break;
-                    case 49:
-                        return '1';
-                    break;
-                    case 50:
-                        return '2';
-                    break;
-                    case 51:
-                        return '3';
-                    break;
-                    case 52:
-                        return '4';
-                    break;
-                    case 53:
-                        return '5';
-                    break;
-                    case 54:
-                        return '6';
-                    break;
-                    case 55:
-                        return '7';
-                    break;
-                    case 56:
-                        return '8';
-                    break;
-                    case 57:
-                        return '9';
-                    break;
-                    if (draw.curU_D == 1){
-                        switch (gay){
-                            case 46:
-                            return '.';
-                            break;
-                            case 58:
-                            return ':';
-                            break;
-                        }
-                    }
-                }
-            break;
         }
     }
 
@@ -198,10 +118,19 @@ class Logical {
             break;
 
             case 7:
-                if (draw.curU_D == 0)
-                    startUDP();
-                if (draw.curU_D == 3)
-                    Start();
+                if (draw.curU_D == 0) startUDP();
+
+                if (draw.curU_D == 1){
+                    draw.inputUDPA(1);
+                    UDP();
+                }
+
+                if (draw.curU_D == 2){
+                    draw.inputUDPA(2);
+                    UDP();
+                }
+
+                if (draw.curU_D == 3) Start();
             break;
         }
     }
@@ -293,17 +222,16 @@ class Logical {
     void UDP(){
         if (trackPoint != 7) {
             draw.curU_D = 0;
-            for (short i = 0; i < 24; i++)
-                draw.targetIp[i] = 255;
-            for (short i = 0; i < 3; i++)
-                draw.threads[i] = 255;
-            }
-        trackPoint = 7;
+            draw.targetIp = "192.168.0.1:88";
+            draw.threads = "1";
+            trackPoint = 7;
+        }
         clear();
         draw.logoShow();
         draw.menuUDP();
         inputController();
     }
+
     void startUDP(){
 
     }
