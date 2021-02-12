@@ -1,5 +1,4 @@
 #pragma once
-#include <python3.7/Python.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
