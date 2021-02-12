@@ -16,7 +16,8 @@ class Menu {
 public: 
 
     string targetIp = "";
-    string threads = "";
+    string threadsStr = "";
+    short threads = 1;
     short curU_D = 0;
 
     void punctShow(const char* punct[], short sizeA){
@@ -116,7 +117,24 @@ public:
         attroff(A_BOLD | A_REVERSE);
     }
 
-    void drawSendPacket(){
+    void drawSendPacket( u_int32_t size, bool successful = 1){
+        if (successful == 1){
+            attron(COLOR_PAIR(1));
+            printw("[ OK ] -- Sended packet, size >> ");
+            attroff(COLOR_PAIR(1));
+
+            printw(std::to_string(size).c_str());
+            printw("byte\n");
+
+            refresh();
+        } else {
+            printw("Error!\n");
+            refresh();
+        }
+
+    }
+
+    void stopedThread(){
 
     }
 
@@ -131,13 +149,13 @@ public:
                 attron(A_BOLD | A_REVERSE);
                 printw(UDP[i]);
                 if (i == 1) printw(targetIp.c_str());
-                if (i == 2) printw(threads.c_str());
+                if (i == 2) printw(threadsStr.c_str());
                 attroff(A_BOLD | A_REVERSE);
             } else {
                 printw("\n\n\t"); 
                 printw(UDP[i]);   
                 if (i == 1) printw(targetIp.c_str());
-                if (i == 2) printw(threads.c_str());
+                if (i == 2) printw(threadsStr.c_str());
             }
         }
             refresh();
@@ -162,7 +180,7 @@ public:
                 printw("Max 200");
                 attroff(COLOR_PAIR(3));
                 printw("\n\n\t│\n\n\t│\n\n\t└──>");
-                threads = getstring();
+                threadsStr = getstring();
             break;
         }
         

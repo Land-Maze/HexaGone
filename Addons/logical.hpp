@@ -2,17 +2,27 @@
 #include <ncurses.h>
 #include <iostream>
 #include <string>
+#include <thread>
 #include <sstream> 
+#include <stdio.h> 
 #include "drawing.hpp"
 #include "..//Tools/SMS.hpp"
+#include "..//Tools/UDP.hpp"
 
-
+using std::string;
+using std::thread;
 
 class Logical {
 
     int gay;
 
     Menu draw;
+    
+    string ip;
+    string port;
+
+    bool threadReady[200];
+
     uint8_t trackPoint = 1; //1 - Menu; 2 - Start; 3 - Creditals, 4 - Fav, 5 - Settings, 6 - SMS, 7 - UDP, 8 - EMAIL;
     public:
     
@@ -118,7 +128,10 @@ class Logical {
             break;
 
             case 7:
-                if (draw.curU_D == 0) startUDP();
+                if (draw.curU_D == 0) {
+                startUDP();
+                
+                }
 
                 if (draw.curU_D == 1){
                     draw.inputUDPA(1);
@@ -223,7 +236,7 @@ class Logical {
         if (trackPoint != 7) {
             draw.curU_D = 0;
             draw.targetIp = "192.168.0.1:88";
-            draw.threads = "1";
+            draw.threadsStr = "1";
             trackPoint = 7;
         }
         clear();
@@ -234,5 +247,37 @@ class Logical {
 
     void startUDP(){
 
+        clear();
+
+        {
+        size_t pos = 0;
+
+        string target = draw.targetIp;
+
+        pos = target.find(':');
+        ip = draw.targetIp.substr(0, pos);
+        target.erase(0, pos + 1);
+        
+        port = target;
+        }
+    
+        draw.threads = std::atoi(draw.threadsStr.c_str());
+
+        //thread sendUdp(sendPacket, ip, port);
+
+        sendPacket (ip, port);
+        /*for (int i = 0; i < draw.threads; i++){
+            sendUdp.join();
+        }*/
+
+    }
+
+    wchar_t *GetWC(const char *c){
+
+    const size_t cSize = strlen(c)+1;
+    wchar_t* wc = new wchar_t[cSize];
+    mbstowcs (wc, c, cSize);
+
+    return wc;
     }
 };
