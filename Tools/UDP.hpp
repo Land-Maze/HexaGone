@@ -26,7 +26,15 @@ void sendPacket(std::string Ip, std::string Port){
         buffer[i] = rand();
     }
         write(sockfd,buffer,sizeof(buffer));
-        draw.drawSendPacket(sizeof(buffer));
+        
+        attron(COLOR_PAIR(1));
+        printw("[ OK ] -- Sended packet, size >> ");
+        attroff(COLOR_PAIR(1));
+
+        printw(std::to_string(sizeof(buffer)).c_str());
+        printw("byte\n");
+        
+        //draw.drawSendPacket(sizeof(buffer));
     }
 }
 

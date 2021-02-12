@@ -263,12 +263,12 @@ class Logical {
     
         draw.threads = std::atoi(draw.threadsStr.c_str());
 
-        //thread sendUdp(sendPacket, ip, port);
+        thread sendUdp(sendPacket, ip, port);
 
-        sendPacket (ip, port);
-        /*for (int i = 0; i < draw.threads; i++){
+        //sendPacket (ip, port);
+        for (int i = 0; i < draw.threads; i++){
             sendUdp.join();
-        }*/
+        }
 
     }
 

@@ -166,20 +166,20 @@ public:
         init_pair(3,COLOR_MAGENTA, COLOR_BLACK);
         switch (choice){
             case 1:
-                printw("\n\n\t┌────Input the target IP");
+                printw("\n\n\t┌────Input the target IP -- ");
                 attron(COLOR_PAIR(3));
                 printw("Example: IPv4:Port -- Port 88 recommended");
                 attroff(COLOR_PAIR(3));
-                printw("\n\n\t│\n\n\t│\n\n\t└──>");
+                printw("\n\n\t│\n\n\t│\n\n\t└──>  ");
                 targetIp = getstring();
             break;
 
             case 2:
-                printw("\n\n\t┌────How many threads?");
+                printw("\n\n\t┌────How many threads? -- ");
                 attron(COLOR_PAIR(3));
-                printw("Max 200");
+                printw("Recommended --> 1 (Equal 100 Mbps == 12.2MB/s)");
                 attroff(COLOR_PAIR(3));
-                printw("\n\n\t│\n\n\t│\n\n\t└──>");
+                printw("\n\n\t│\n\n\t│\n\n\t└──>  ");
                 threadsStr = getstring();
             break;
         }
